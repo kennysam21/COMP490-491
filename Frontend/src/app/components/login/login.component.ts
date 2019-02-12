@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { UserTableService } from 'src/app/services/user-table.service';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +15,13 @@ export class LoginComponent implements OnInit {
 
   public error = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private UserTable: UserTableService) { }
 
   ngOnInit() {
   }
 
   onSubmit(){
-    //console.log(this.form);
-    return this.http.post('http://localhost:8000/api/login', this.form)
-    .subscribe(
+    this.UserTable.login(this.form).subscribe(
       data => console.log(data),
       error => this.handleError(error)
     );
