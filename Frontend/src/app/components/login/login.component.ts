@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   public form = {
     email: null,
     password: null
-  }
+  };
 
   public error = null;
 
