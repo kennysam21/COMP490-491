@@ -10,6 +10,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { TokenService } from './services/token.service';
+import { UserTableService } from './services/user-table.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, TokenService, UserTableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
