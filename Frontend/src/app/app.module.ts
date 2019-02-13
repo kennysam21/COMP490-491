@@ -15,6 +15,7 @@ import { TokenService } from './services/token.service';
 import { UserTableService } from './services/user-table.service';
 import { AfterLoginService } from './services/after-login.service';
 import { BeforeLoginService } from './services/before-login.service';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,12 @@ import { BeforeLoginService } from './services/before-login.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SnotifyModule
   ],
-  providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService],
+  providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
