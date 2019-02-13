@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { TokenService } from './services/token.service';
 import { UserTableService } from './services/user-table.service';
+import { AfterLoginService } from './services/after-login.service';
+import { BeforeLoginService } from './services/before-login.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { UserTableService } from './services/user-table.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, TokenService, UserTableService],
+  providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

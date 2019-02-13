@@ -5,27 +5,34 @@ import { SignupComponent } from './components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
+import { BeforeLoginService } from './services/before-login.service';
+import { AfterLoginService } from './services/after-login.service';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [BeforeLoginService]
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
+    canActivate: [BeforeLoginService]
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AfterLoginService]
   },
   {
     path: 'request-password-reset',
-    component: RequestResetComponent
+    component: RequestResetComponent,
+    canActivate: [AfterLoginService]
   },
   {
     path: 'response-password-reset',
-    component: ResponseResetComponent
+    component: ResponseResetComponent,
+    canActivate: [AfterLoginService]
   }
 ];
 
