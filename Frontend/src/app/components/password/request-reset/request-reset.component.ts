@@ -29,6 +29,7 @@ export class RequestResetComponent implements OnInit {
   }
 
   handleResponse(res){
+    console.log(res);
     this.form.email = null;
   }
 }
