@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserTableService } from 'src/app/services/user-table.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class ResponseResetComponent implements OnInit {
   }
   constructor(
     private route: ActivatedRoute,
-    private UserTable: UserTableService
+    private UserTable: UserTableService,
+    private router: Router
   ) 
   { 
     // get token from url and add to form
@@ -37,7 +38,7 @@ export class ResponseResetComponent implements OnInit {
   }
 
   handleResponse(data){
-
+    this.router.navigateByUrl('login');
   }
 
   handleError(error){
