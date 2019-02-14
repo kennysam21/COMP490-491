@@ -40,8 +40,8 @@ export class SignupComponent implements OnInit {
   }
   
   handleResponse(data){
-    this.Token.handle(data.access_token);
+    // this.Token.handle(data.access_token);
     // opens dashboard when returns true
-    this.router.navigateByUrl('dashboard');
+    this.router.navigateByUrl('login');
   }
 }
