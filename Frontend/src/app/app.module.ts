@@ -16,6 +16,10 @@ import { UserTableService } from './services/user-table.service';
 import { AfterLoginService } from './services/after-login.service';
 import { BeforeLoginService } from './services/before-login.service';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import { WaterUsageComponent } from './components/water-usage/water-usage.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
     DashboardComponent,
     RequestResetComponent,
     ResponseResetComponent,
+    SidebarComponent,
+    ScheduleComponent,
+    ControllerComponent,
+    WaterUsageComponent,
   ],
   imports: [
     BrowserModule,

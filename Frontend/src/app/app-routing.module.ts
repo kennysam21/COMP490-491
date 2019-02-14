@@ -7,6 +7,9 @@ import { RequestResetComponent } from './components/password/request-reset/reque
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { BeforeLoginService } from './services/before-login.service';
 import { AfterLoginService } from './services/after-login.service';
+import { ScheduleComponent } from './components/schedule/schedule.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import { WaterUsageComponent } from './components/water-usage/water-usage.component';
 
 const routes: Routes = [
   {
@@ -33,6 +36,21 @@ const routes: Routes = [
     path: 'response-password-reset',
     component: ResponseResetComponent,
     canActivate: [BeforeLoginService]
+  },
+  {
+    path: 'schedule',
+    component: ScheduleComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'controller',
+    component: ControllerComponent,
+    canActivate: [AfterLoginService]
+  },
+  {
+    path: 'waterUsage',
+    component: WaterUsageComponent,
+    canActivate: [AfterLoginService]
   }
 ];
 
