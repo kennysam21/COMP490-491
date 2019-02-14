@@ -44,6 +44,7 @@ class ResetPasswordController extends Controller
         $token = str_random(60);
         //save to database
         $this->saveToken($token, $email);
+        return $token;
     }
 
     public function saveToken($token, $email){
