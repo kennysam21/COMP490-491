@@ -20,4 +20,8 @@ export class UserTableService {
   sendPasswordResetLink(data){
     return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
   }
+
+  changePassword(data){
+    return this.http.post(`${this.baseUrl}/resetPassword`, data);
+  }
 }
