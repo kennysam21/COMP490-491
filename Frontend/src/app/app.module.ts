@@ -20,6 +20,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ControllerComponent } from './components/controller/controller.component';
 import { WaterUsageComponent } from './components/water-usage/water-usage.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,10 @@ import { WaterUsageComponent } from './components/water-usage/water-usage.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SnotifyModule
+    SnotifyModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBjpDJjvK5T22oDGrQyrY1Vl-qzYU1cytM'
+    })
   ],
   providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},

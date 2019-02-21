@@ -11,7 +11,58 @@
     </div>
   </div>
   <div id="page-content-wrapper">
-    dashboard works!
+    <h1>You are currently in {{ city }}, {{ state }} {{ country }}</h1>
+    <h3>Lat is {{ lat }} and long is {{ lng }}</h3>
+    <agm-map 
+    [latitude]="lat" 
+    [longitude]="lng" 
+    (mapDblClick)="onMapDblClick($event)"
+    (mapRightClick)="onMapRtClick($event)"
+    [disableDoubleClickZoom]="true"
+    [zoom]="zoom">
+      <agm-marker 
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)"
+          (markerRightClick)="markRtClick(m.lat, m.lng)">
+          
+        <agm-info-window>
+          <strong>
+            Latitude: {{ m.lat }}
+            <br>
+            Longitude: {{ m.lng }}
+          </strong>
+        </agm-info-window>
+        
+      </agm-marker>
+
+      <agm-rectangle
+      *ngFor="let a of areas; let i = index"
+      [north]="a.north"
+      [south]="a.south"
+      [east]="a.east"
+      [west]="a.west"
+      [rectangleDraggable]="a.draggable"
+      [fillColor]="a.color"
+      [editable]="a.editable"
+      (rightClick)="areaRtClick(a.north)"
+      (dragEnd)="areaDragEnd(a, $event)"
+      (boundsChange)="areaDragEnd(a, $event)"
+      >
+      </agm-rectangle>
+    </agm-map>
+  </div>
+
+  <div style="margin-left: 10px" style="width: 25%">
+      Right Click map to add an area
+      <br>
+      Double Click map to add a marker
+      <br>
+      Right Click map marker or area to remove them
   </div>
 
 </div>

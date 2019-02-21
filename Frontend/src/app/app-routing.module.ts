@@ -10,6 +10,7 @@ import { AfterLoginService } from './services/after-login.service';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ControllerComponent } from './components/controller/controller.component';
 import { WaterUsageComponent } from './components/water-usage/water-usage.component';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
   {
@@ -55,7 +56,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBjpDJjvK5T22oDGrQyrY1Vl-qzYU1cytM'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
