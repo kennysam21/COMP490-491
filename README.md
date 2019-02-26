@@ -27,7 +27,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-change folder to front end in terminal then run these commands
+change folder to backend in terminal then run these commands
 
 ```
 composer install
@@ -39,7 +39,7 @@ php artisan serve
 
 ### Set up the Frontend
 
-change folder to backend in another terminal then run these commands
+change folder to frontend in another terminal then run these commands
 
 ```
 npm install -g @angular/cli
