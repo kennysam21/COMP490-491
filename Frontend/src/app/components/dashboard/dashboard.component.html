@@ -12,7 +12,7 @@
   </div>
   <div id="page-content-wrapper">
     <h1>You are currently in {{ city }}, {{ state }} {{ country }}</h1>
-    <h3>Lat is {{ lat }} and long is {{ lng }}</h3>
+    <h3>Lat is {{ lat }} and Long is {{ lng }}</h3>
     <agm-map 
     [latitude]="lat" 
     [longitude]="lng" 
@@ -46,11 +46,11 @@
       [south]="a.south"
       [east]="a.east"
       [west]="a.west"
-      [rectangleDraggable]="a.draggable"
+      [rectangleDraggable]="true"
       [fillColor]="a.color"
-      [editable]="a.editable"
-      (rightClick)="areaRtClick(a.north)"
+      [editable]="true"
       (dragEnd)="areaDragEnd(a, $event)"
+      (rightClick)="areaRtClick(a.north)"
       (boundsChange)="areaDragEnd(a, $event)"
       >
       </agm-rectangle>

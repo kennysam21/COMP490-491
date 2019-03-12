@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
 
 // google maps zoom level
-  zoom: number = 15;
+  zoom: number = 17;
   
   // location details
   lat: number = 0;
@@ -70,10 +70,10 @@ export class DashboardComponent implements OnInit {
   onMapRtClick(event){
     this.generateColor();
     this.areas.push({
-      north: event.coords.lat + 0.001,
-      south: event.coords.lat - 0.001,
-      east: event.coords.lng + 0.001,
-      west: event.coords.lng - 0.001,
+      north: event.coords.lat + 0.0005,
+      south: event.coords.lat - 0.0005,
+      east: event.coords.lng + 0.0005,
+      west: event.coords.lng - 0.0005,
       draggable: true,
       color: this.color,
       editable: true
