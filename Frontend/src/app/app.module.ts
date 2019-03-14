@@ -21,6 +21,13 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { ControllerComponent } from './components/controller/controller.component';
 import { WaterUsageComponent } from './components/water-usage/water-usage.component';
 import { AgmCoreModule } from '@agm/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CommonModule } from '@angular/common';
+import 'flatpickr/dist/flatpickr.css';
 
 @NgModule({
   declarations: [
@@ -44,7 +51,15 @@ import { AgmCoreModule } from '@agm/core';
     SnotifyModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBjpDJjvK5T22oDGrQyrY1Vl-qzYU1cytM'
-    })
+    }),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    NgbModule,
+    CommonModule,
+    FlatpickrModule.forRoot()
   ],
   providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},

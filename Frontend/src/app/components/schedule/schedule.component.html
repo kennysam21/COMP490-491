@@ -1,17 +1,208 @@
-<div class="d-flex" id="wrapper" style="height:100vh">
 
-  <!-- Sidebar -->
-  <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="list-group list-group-flush" style="width: 15vh">
-      <button routerLink="/"  class="list-group-item list-group-item-action bg-light" id="homepagebutton">Home Page</button>
-      <button routerLink="/dashboard" class="list-group-item list-group-item-action bg-light" id="dashboardButton">Dashboard</button>
-      <button routerLink="/schedule"  class="list-group-item list-group-item-action bg-light" id="scheduleButton">Schedule</button>
-      <button routerLink="/controller" class="list-group-item list-group-item-action bg-light" id="controllerButton">Controllers</button>
-      <button routerLink="/waterUsage" class="list-group-item list-group-item-action bg-light" id="waterUsageButton">Water Usage</button>
+<div style="width:75%; margin: 0 auto">
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Action:
+      <pre>{{ modalData?.action }}</pre>
+    </div>
+    <div>
+      Event:
+      <pre>{{ modalData?.event | json }}</pre>
     </div>
   </div>
-  <div id="page-content-wrapper">
-    schedule works!
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+      OK
+    </button>
   </div>
+</ng-template>
+
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        mwlCalendarPreviousView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false"
+      >
+        Previous
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+      >
+        Today
+      </div>
+      <div
+        class="btn btn-primary"
+        mwlCalendarNextView
+        [view]="view"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="activeDayIsOpen = false"
+      >
+        Next
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+  </div>
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Month"
+        [class.active]="view === CalendarView.Month"
+      >
+        Month
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Week"
+        [class.active]="view === CalendarView.Week"
+      >
+        Week
+      </div>
+      <div
+        class="btn btn-primary"
+        (click)="view = CalendarView.Day"
+        [class.active]="view === CalendarView.Day"
+      >
+        Day
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventTimesChanged)="eventTimesChanged($event)"
+  >
+  </mwl-calendar-day-view>
+</div>
+
+<br /><br /><br />
+
+<h3>
+  Edit events
+  <button class="btn btn-primary pull-right" (click)="addEvent()">
+    Add new
+  </button>
+  <div class="clearfix"></div>
+</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Event Color</th>
+      <th>Controller Area</th>
+      <th>Starts at</th>
+      <th>Ends at</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let event of events; let index = index">
+      <td>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="event.title"
+          (keyup)="refresh.next()"
+        />
+      </td>
+      <td>
+        <input
+          type="color"
+          [(ngModel)]="event.color.primary"
+          (change)="refresh.next()"
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="event.controllerArea"
+          (keyup)="refresh.next()"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          mwlFlatpickr
+          [(ngModel)]="event.start"
+          (ngModelChange)="refresh.next()"
+          [altInput]="true"
+          [convertModelValue]="true"
+          [enableTime]="true"
+          dateFormat="Y-m-dTH:i"
+          altFormat="F j, Y H:i"
+          placeholder="Not set"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          mwlFlatpickr
+          [(ngModel)]="event.end"
+          (ngModelChange)="refresh.next()"
+          [altInput]="true"
+          [convertModelValue]="true"
+          [enableTime]="true"
+          dateFormat="Y-m-dTH:i"
+          altFormat="F j, Y H:i"
+          placeholder="Not set"
+        />
+      </td>
+      <td>
+        <button
+          class="btn btn-danger"
+          (click)="events.splice(index, 1); refresh.next()"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 </div>
