@@ -145,14 +145,14 @@
           type="text"
           class="form-control"
           [(ngModel)]="event.title"
-          (keyup)="refresh.next()"
+          (keyup)="refresh.next(); eventHappened()"
         />
       </td>
       <td>
         <input
           type="color"
           [(ngModel)]="event.color.primary"
-          (change)="refresh.next()"
+          (change)="refresh.next(); eventHappened()"
         />
       </td>
       <td>
@@ -160,7 +160,7 @@
           type="text"
           class="form-control"
           [(ngModel)]="event.controllerArea"
-          (keyup)="refresh.next()"
+          (keyup)="refresh.next(); eventHappened()"
         />
       </td>
       <td>
@@ -169,7 +169,7 @@
           type="text"
           mwlFlatpickr
           [(ngModel)]="event.start"
-          (ngModelChange)="refresh.next()"
+          (ngModelChange)="refresh.next(); eventHappened()"
           [altInput]="true"
           [convertModelValue]="true"
           [enableTime]="true"
@@ -184,7 +184,7 @@
           type="text"
           mwlFlatpickr
           [(ngModel)]="event.end"
-          (ngModelChange)="refresh.next()"
+          (ngModelChange)="refresh.next(); eventHappened()"
           [altInput]="true"
           [convertModelValue]="true"
           [enableTime]="true"
@@ -196,7 +196,7 @@
       <td>
         <button
           class="btn btn-danger"
-          (click)="events.splice(index, 1); refresh.next()"
+          (click)="events.splice(index, 1); refresh.next(); eventHappened()"
         >
           Delete
         </button>

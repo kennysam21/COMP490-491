@@ -91,8 +91,7 @@ export class ScheduleComponent implements OnInit {
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
-      title: 'A 3 day controller cycle',
-      controllerArea: 'Sierra Quad',
+      title: 'A 3 day event',
       color: colors.red,
       actions: this.actions,
       allDay: true,
@@ -103,20 +102,23 @@ export class ScheduleComponent implements OnInit {
       draggable: true
     },
     {
-      start: startOfDay(new Date()),
-      title: 'Single day controller cycle',
-      controllerArea: 'Matador Square',
-      color: colors.yellow,
-      actions: this.actions,
-      draggable: true
-    },
-    {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
-      controllerArea: 'Orange Grove',
-      title: '2 month controller cycle',
+      title: 'A long event that spans 2 months',
       color: colors.blue,
       allDay: true
+    },
+    {
+      start: addHours(startOfDay(new Date()), 2),
+      end: new Date(),
+      title: 'A 1 day event',
+      color: colors.yellow,
+      actions: this.actions,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true
+      },
+      draggable: true
     }
   ];
 
@@ -125,6 +127,11 @@ export class ScheduleComponent implements OnInit {
   constructor(private modal: NgbModal) {}
 
   ngOnInit() {
+    /*if(JSON.parse(localStorage.getItem('event')) != null){
+      console.log('loading events from local storage???');
+      this.events = JSON.parse(localStorage.getItem('event'));
+      this.refresh.next();
+    }*/
   }
 
   dayClicked({ date, events }: { date: Date; events: SprinklerEvent[] }): void {
@@ -168,7 +175,12 @@ export class ScheduleComponent implements OnInit {
         afterEnd: true
       }
     });
+    localStorage.setItem('event', JSON.stringify(this.events));
     this.refresh.next();
   }
 
+  eventHappened(){
+    console.log('event happened');
+    localStorage.setItem('event', JSON.stringify(this.events));
+  }
 }
