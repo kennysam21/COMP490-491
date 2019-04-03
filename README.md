@@ -15,7 +15,7 @@ create a database called irrigation
 create a new .env file:
 
 ```
-change directory to frontend folder in terminal
+change directory to backend folder in terminal
 copy example env file using command "cp .env.example .env"
 ```
 
