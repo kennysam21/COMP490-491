@@ -132,8 +132,11 @@
       <th>Title</th>
       <th>Event Color</th>
       <th>Controller Area</th>
+      <th>Valve Number</th>
       <th>Starts at</th>
       <th>Ends at</th>
+      <th>Repeat</th>
+      <th>Duration</th>
       <th>Remove</th>
     </tr>
   </thead>
@@ -161,6 +164,14 @@
           class="form-control"
           [(ngModel)]="event.controllerArea"
           (keyup)="refresh.next(); eventHappened()"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="event.valveNum"
+          (ngModelChange)="refresh.next; eventHappened()"
         />
       </td>
       <td>
@@ -194,6 +205,25 @@
         />
       </td>
       <td>
+        <select 
+        class="form-control" 
+        (change) = "setRepeat(event.eventId, $event)"
+        >
+          <option value="Once" selected>Once</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Bi-Weekly">Bi-Weekly</option>
+          <option value="Monthly">Monthly</option>
+        </select>
+      </td>
+      <td>
+        <input
+          type="text"
+          class="form-control"
+          (change)="setDuration(event.eventId, $event)"
+        />
+      </td>
+      <td>
         <button
           class="btn btn-danger"
           (click)="events.splice(index, 1); refresh.next(); eventHappened()"
@@ -204,5 +234,10 @@
     </tr>
   </tbody>
 </table>
+<button
+class="btn btn-primary"
+>
+Save
+</button>
 
 </div>
