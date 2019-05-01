@@ -25,6 +25,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 const colors: any = {
   red: {
@@ -62,6 +64,12 @@ interface SprinklerEventTimesChangedEvent extends CalendarEventTimesChangedEvent
   event: SprinklerEvent;
 }
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
+
 
 @Component({
   selector: 'app-schedule',
@@ -88,6 +96,8 @@ export class ScheduleComponent implements OnInit {
   repeatEvery: string[] = [];
   repeatAndDuration: string[] = [];
 
+  id: number = 1;
+
   actions: SprinklerEventAction[] = [
     /*{
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -107,7 +117,7 @@ export class ScheduleComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   events: SprinklerEvent[] = [
-    {
+    /*{
       eventCreated: new Date(),
       controllerArea: 'Matador Square',
       valveNum: 1,
@@ -150,12 +160,12 @@ export class ScheduleComponent implements OnInit {
         afterEnd: true
       },
       draggable: true,
-    }
+    }*/
   ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private http: HttpClient) {}
 
   ngOnInit(){
     /*this.events.push({
@@ -225,7 +235,10 @@ export class ScheduleComponent implements OnInit {
       title: '',
       start: startOfDay(new Date()),
       valveNum: 0,
-      color: colors.newcol,
+      color: {
+        primary: '#e3bc08',
+        secondary: '#FDF1BA'
+      },
       draggable: true,
       resizable: {
         beforeStart: true,
@@ -323,5 +336,27 @@ export class ScheduleComponent implements OnInit {
         this.events.push(copy);
       }
     }
+  }
+
+  saveEvents(){
+    /*let jsonData = JSON.stringify({event: this.events, "id":this.id});
+    localStorage.setItem('event', jsonData);*/
+    //console.log(jsonData);
+    const url = `http://localhost:3000/data/${this.id}`;
+    this.http.delete(url, httpOptions)
+      .subscribe(
+        //if not found add new events with same id
+        (data:any) => {console.log('found event so deleting');
+          this.addEvents();
+        },
+        error => {console.log('not found so adding events');
+         this.addEvents();
+        }
+      )
+  }
+
+  addEvents(){
+    let jsonData = JSON.stringify({event: this.events, "id":this.id});
+    this.http.post('http://localhost:3000/data', jsonData, httpOptions).subscribe((data:any) => {console.log(data);})
   }
 }
