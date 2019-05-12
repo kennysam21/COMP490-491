@@ -47,7 +47,7 @@ npm install
 ng serve --open
 ```
 ### Testing JSON
-install test json server and start it in seperate terminal using these 2 commands
+install test json server and start it in separate terminal using these 2 commands
 ```
 npm install -g json-server
 json-server --watch db.json
