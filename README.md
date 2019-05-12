@@ -45,3 +45,12 @@ change folder to frontend in another terminal then run these commands
 npm install -g @angular/cli
 npm install
 ng serve --open
+```
+### Testing JSON
+install test json server and start it in seperate terminal using these 2 commands
+```
+npm install -g json-server
+json-server --watch db.json
+```
+json-server github
+https://github.com/typicode/json-server
