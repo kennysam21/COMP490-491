@@ -1,2 +1,31 @@
-
-    water usage works!
+<div class="d-flex">
+    <div>
+      <div class="container">
+        <canvas baseChart width="1200" height="800"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table table-responsive table-condensed">
+        <tr>
+          <th *ngFor="let label of lineChartLabels">{{label}}</th>
+        </tr>
+        <tr *ngFor="let d of lineChartData; let i=index" [class]="'line-'+i">
+          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+        </tr>
+      </table>
+      <button mat-button mat-raised-button color="primary" (click)="hideAllDaily()">Daily</button>
+      <button mat-button mat-raised-button color="primary" (click)="hideAllMonthly()">Monthly</button>
+      <button mat-button mat-raised-button color="primary" (click)="hideAllSeasonally()">Seasonally</button>
+      <button mat-button mat-raised-button color="primary" (click)="hideAllAnnually()">Annually</button>
+    </div>
+  </div>
+  

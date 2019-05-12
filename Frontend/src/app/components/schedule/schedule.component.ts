@@ -28,25 +28,6 @@ import {
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  },
-  newcol: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
-
 interface SprinklerEvent extends CalendarEvent {
   controllerArea: string;
   eventId: string;
@@ -99,12 +80,6 @@ export class ScheduleComponent implements OnInit {
   id: number = 1;
 
   actions: SprinklerEventAction[] = [
-    /*{
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: SprinklerEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },*/
     {
       label: 'Delete',
       onClick: ({ event }: { event: SprinklerEvent }): void => {
@@ -116,52 +91,7 @@ export class ScheduleComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: SprinklerEvent[] = [
-    /*{
-      eventCreated: new Date(),
-      controllerArea: 'Matador Square',
-      valveNum: 1,
-      eventId: this.createRandomId(),
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      eventCreated: new Date(),
-      controllerArea: 'Sierra Quad',
-      valveNum: 2,
-      eventId: this.createRandomId(),
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      eventCreated: new Date(),
-      controllerArea: 'Orange Grove',
-      valveNum: 3,
-      eventId: this.createRandomId(),
-      start: new Date(),
-      end: addHours(startOfDay(new Date()), 2),
-      title: 'A 1 day event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true,
-    }*/
-  ];
+  events: SprinklerEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
@@ -222,7 +152,7 @@ export class ScheduleComponent implements OnInit {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
     if(action === 'Clicked'){
-      // print json of event
+      // print json of event in console
       console.log(this.getJson());
     }
   }

@@ -28,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CommonModule } from '@angular/common';
 import 'flatpickr/dist/flatpickr.css';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import 'flatpickr/dist/flatpickr.css';
     }),
     NgbModule,
     CommonModule,
-    FlatpickrModule.forRoot()
+    FlatpickrModule.forRoot(),
+    ChartsModule
   ],
   providers: [AuthService, TokenService, UserTableService, AfterLoginService, BeforeLoginService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
